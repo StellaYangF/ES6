@@ -34,7 +34,7 @@ function createArray (...elements) {
   let handler = {
     get (target, property, receiver) {
       let index = Number(property);
-      if (index < 0)  property = String(target.length + index);
+      property =  index < 0 ? String(target.length + index): index;
       return Reflect.get(target, property, receiver);
     }
   };
