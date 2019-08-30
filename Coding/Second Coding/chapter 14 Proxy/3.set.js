@@ -22,7 +22,18 @@ person.age //100
 person.age = 'young'; //Error
 person.age = 300; //Errors
 
-/************************************************************************/
+/*******************************第四个参数receiver*****************************************/
+const handler = {
+  set (target, prop, value, receiver) {
+    target[prop] = receiver;
+  }
+};
+const target = {};
+const proxy = new Proxy(target, handler);
+const obj = {};
+Object.setPrototypeOf(obj, proxy);
+obj.foo = 'bar';
+obj.foo === obj;  // true
 /************************************************************************/
 /************************************************************************/
 /************************************************************************/
