@@ -4,14 +4,14 @@
 let validator = {
   set (target, property, value, receiver) {
     if (property  === 'age') {
-      if ( !Number.isInteger(value) {
+      if ( !Number.isInteger(value) ){
         throw new TypeError('The age is not an integer');
       }
       if (value > 200) {
         throw new RangeError('The age seems invalid');
       }
     }
-    obj[property] = value;
+    target[property] = value;
   }
 }
 const target = {};
