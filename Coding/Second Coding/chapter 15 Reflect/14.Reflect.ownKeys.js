@@ -7,5 +7,11 @@ const obj = {
 }
 
 Object.getOwnPropertyNames(obj);
+// ['foo', 'bar']
 Object.getOwnPropertySymbols(obj);
+//[Symbol(baz), Symbol(bing)]
+Reflect.ownKeys(obj);
+// ['foo', 'bar', Symbol(baz), Symbol(bing)]
+
+// 如果Reflect.ownKeys()方法的第一个参数不是对象，会报错。
 
