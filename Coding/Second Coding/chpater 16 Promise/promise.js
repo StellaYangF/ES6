@@ -1,52 +1,41 @@
-const isPromise = value => {
-  if (
-    (typeof value === "object" && value !== null) ||
-    typeof value === "function"
-  ) {
-    return typeof promise.then === "function";
-  } else return false;
-};
+const PENDING = 'pending';
+const RESOLVED = 'resolved';
+const REJECTED = 'rejected';
 
-// Promise.race = promises => {
-//   return new Promise((resolve, reject) => {
-//     promises.map(promise => {
-//       if (isPromise(promise)) {
-//         promise.then(
-//           data => {
-//             resolve(data);
-//           },
-//           err => reject(err)
-//         );
-//       } else {
-//         resolve(promise);
-//       }
-//     });
-//   });
-// };
+class Promise {
 
-new Promise((resolve, reject) => {
-  resolve();
-});
+  constructor (executor) {
+    this.status = PENDING;
+    this.value = undefined;
+    this.reason = undefined;
+    this.stack = new Set();
 
-Promise.race([1, Promise.resolve(2), Promise.reject(3)]).then(
-  data => console.log(data),
-  err => console.log(err)
-);
+    const resolve = value =>  {
+      if (this.status === PENDING) {
+        this.status = RESOLVED;
+        this.value = value;
+      }
+    }
 
-Promise.prototype.finally = function(f) {
-  return this.then(
-    value => Promise.resolve(f()).then(() => value),
-    err =>
-      Promise.resolve(f()).then(() => {
-        throw err;
-      })
-  );
-};
+    const reject = reason =>  {
+      if (this.status === PENDING) {
+        this.status = REJECTED;
+        this.reason = reason;
+      }
+    }
 
-Promise.resolve('hello')
-  .finally(
-    () => console.log('end')
-  )
-  .then(
-    value =>console.log(value)
-  )
+    executor(resolve, reject);
+  }
+
+  // instance method
+  then (onFulfilled, onRejected) {
+    if (this.status === RESOLVED) {
+      onFulfilled(this.value);
+    }
+    if (this.status === REJECTED) {
+      onRejected(this.reason);
+    }
+  }
+}
+
+module.exports = Promise;
