@@ -62,3 +62,26 @@ function print () {
 
 observe(print);
 person.name= 'Lily';
+
+// practice
+const queuedObservers = new Set();
+const observe = fn => (...args) => queuedObservers.add((value)=>{fn(value,...args)});
+const observable = obj => new Proxy(obj, {set});
+function set (target, key, value, receiver) {
+  const result = Reflect.set(target, key, value, receiver);
+  queuedObservers.forEach(fn => fn(value));
+  return result;
+}
+
+function hello (...args) {
+  console.log(...args);
+}
+
+observe(hello)('Morning');
+
+let person = observable({
+  name: 'Lily',
+  age: 27,
+})
+
+person.age = 30;
