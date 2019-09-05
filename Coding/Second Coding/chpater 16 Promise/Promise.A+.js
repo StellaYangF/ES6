@@ -145,7 +145,9 @@ class Promise {
 
     try () {
         // 捕获同步异常，异步异常
-    } finally(callback) {
+    }
+    
+    finally(callback) {
         // 如果返回一个promise，会等待这个promise执行完成
         return this.then(
             value => Promise.resolve(callback()).then(() => value),

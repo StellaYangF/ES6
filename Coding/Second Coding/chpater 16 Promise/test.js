@@ -1,4 +1,4 @@
-const Promise = require('./promise');
+// const Promise = require('./promise.A+.js');
 
 const p = new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -8,6 +8,7 @@ const p = new Promise((resolve, reject) => {
 })
 
 let promise2 = p.then(
-    value => promise2,
+    () => promise2,
     reason => reason
-).then(value => console.log(value), reason => console.log(reason));
+).then(()=>{},err=>console.log(err));
+
