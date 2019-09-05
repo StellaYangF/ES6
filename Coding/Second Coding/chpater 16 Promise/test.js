@@ -10,5 +10,8 @@ const p = new Promise((resolve, reject) => {
 let promise2 = p.then(
     () => promise2,
     reason => reason
-).then(()=>{},err=>console.log(err));
+)
 
+// process.on('unhandledRejection',(err,p) => {
+//   throw err;
+// })
