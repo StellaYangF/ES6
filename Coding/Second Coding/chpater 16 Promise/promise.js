@@ -11,10 +11,9 @@ class Promise {
     this.onRejectedCallbacks = new Set();
 
     const resolve = value => {
-      if (value instanceof Promise) {
-        debugger;
-        return value.then(resolve, reject);
-      }
+      // if (value instanceof Promise) {
+      //   return value.then(resolve, reject);
+      // }
       if (this.status === PENDING) {
         this.status = FULFILLED;
         this.value = value;
