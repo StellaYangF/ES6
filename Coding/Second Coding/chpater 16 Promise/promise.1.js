@@ -133,9 +133,10 @@ class Promise {
   }
 
   finally (callback) {
+    let p = this.constructor;
     return this.then(
-      value => Promise.reoslve(callback()).then(() => value),
-      error => Promise.reject(callback()).then(() => { throw error })
+      value => p.resolve(callback()).then(() => value),
+      error => p.resolve(callback()).then(() => { throw error })
     )
   }
 
@@ -168,6 +169,7 @@ class Promise {
       })
     })
   }
+
 }
 
 // test

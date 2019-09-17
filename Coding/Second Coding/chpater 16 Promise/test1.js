@@ -1,5 +1,11 @@
 const Promise = require('./promise.1');
 
+/*test finally method*/ 
+Promise.resolve(1).then(()=>{}, ()=>{}).then(data => console.log('resolve without finally',data));
+Promise.resolve(1).finally(()=>{}).then(data => console.log('resolve with finally', data));
+Promise.reject(2).then(()=>{}, ()=>{}).catch(data => console.log('reject without finally', data));
+Promise.reject(2).finally(()=>{}).catch(data => console.log('reject with finally', data));
+
 Promise.all([1, 3, new Promise(reoslve => reoslve(333))]).then(
   data => console.log('OK', data),
   err => console.log('Oops!', err)
