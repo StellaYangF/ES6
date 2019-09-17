@@ -132,6 +132,13 @@ class Promise {
     this.then(null, onRejected)
   }
 
+  finally (callback) {
+    return this.then(
+      value => Promise.reoslve(callback()).then(() => value),
+      error => Promise.reject(callback()).then(() => { throw error })
+    )
+  }
+
   static resolve(value) {
     return new Promise(resolve => resolve(value));
   }
