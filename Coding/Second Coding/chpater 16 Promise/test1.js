@@ -1,5 +1,10 @@
 const Promise = require('./promise.1');
 
+Promise.all([1, 3, new Promise(reoslve => reoslve(333))]).then(
+  data => console.log('OK', data),
+  err => console.log('Oops!', err)
+);
+
 const p = new Promise((resolve, reject) => {
   setTimeout(() => {
     resolve(new Promise(resolve => resolve('hello')));
@@ -35,3 +40,4 @@ p
     data => console.log(data), 
     reason => console.log(reason)
   );
+
