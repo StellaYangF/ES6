@@ -37,3 +37,23 @@ Point.prototype = {
   toString() {},
   toValue() {},
 };
+
+
+// 由于方法都定义在prototype对象上，类的新方法可添加在prototype对象上，Object.assign可一次添加多个方法
+class A {}
+Object.assign(A.prototype, {
+  toString() {},
+  toValue() {},
+})
+
+
+// 类的内部所有定义的方法，都是不可枚举的（non-enumerable）。
+// 1) 
+class A {}
+A.prototype.toString = arg => "toString" + arg;
+
+a = new A();
+
+for (let key in a) {
+  console.log(key)
+}
