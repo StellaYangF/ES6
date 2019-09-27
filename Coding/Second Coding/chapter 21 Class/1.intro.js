@@ -57,3 +57,22 @@ a = new A();
 for (let key in a) {
   console.log(key)
 }
+
+
+// 不用new执行，会报错
+class A {
+  constructor() {
+    return this;
+    // 默认返回实例对象
+    return Object.create(null);
+    // 设置返回其他
+  }
+}
+
+A();
+
+// ES5
+function A() {
+
+}
+A();
